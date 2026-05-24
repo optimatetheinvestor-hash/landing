@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#080910" id="theme-meta">
+<title>The Investor – הרשמה לאירועים</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════
+   RESET
+════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+/* ════════════════════════════════════════════════════
+   DARK TOKENS  (default)
+════════════════════════════════════════════════════ */
+:root {
+  --bg:          #080910;
+  --bg-card:     #0E1119;
+  --bg-input:    #13161F;
+  --bg-input-f:  #181C28;
+  --bg-elevated: #1A1E2C;
+  --bdr:         rgba(212,168,67,0.16);
+  --bdr-hover:   rgba(212,168,67,0.38);
+  --bdr-focus:   rgba(212,168,67,0.70);
+  --bdr-subtle:  rgba(255,255,255,0.07);
+  --gold:        #D4A843;
+  --gold-bright: #F0C85A;
+  --gold-dim:    rgba(212,168,67,0.10);
+  --gold-glow:   rgba(212,168,67,0.22);
+  --text:        #F0EDE6;
+  --text-soft:   #C8C4BC;
+  --text-muted:  #8E8B85;
+  --text-dim:    #4A4844;
+  --error:       #FF6B6B;
+  --error-bg:    rgba(255,107,107,0.10);
+  --error-bdr:   rgba(255,107,107,0.35);
+  --success:     #4ADE80;
+  --success-bg:  rgba(74,222,128,0.08);
+  --success-bdr: rgba(74,222,128,0.30);
+  --info-bg:     rgba(96,165,250,0.08);
+  --info-bdr:    rgba(96,165,250,0.25);
+  --info-text:   #93C5FD;
+  --r-sm:8px; --r-md:12px; --r-lg:18px; --r-xl:24px; --r-pill:100px;
+  --t-fast:0.15s ease; --t-base:0.22s cubic-bezier(0.4,0,0.2,1); --t-slow:0.35s cubic-bezier(0.4,0,0.2,1);
+  --shadow-card: 0 0 0 1px rgba(255,255,255,0.04), 0 20px 60px rgba(0,0,0,0.70), 0 4px 16px rgba(0,0,0,0.50);
+  --shadow-input-focus: 0 0 0 3px rgba(212,168,67,0.18);
+  --shadow-btn-p: 0 4px 20px rgba(212,168,67,0.30), 0 2px 8px rgba(0,0,0,0.40);
+  --shadow-btn-h: 0 8px 32px rgba(212,168,67,0.42), 0 4px 12px rgba(0,0,0,0.40);
+  --btn-p-bg:    linear-gradient(135deg,#D4A843 0%,#B88B2C 50%,#C99E3A 100%);
+  --btn-p-hover: linear-gradient(135deg,#F0C85A 0%,#D4A843 100%);
+  --btn-p-text:  #060710;
+  --cf-bg:       rgba(0,0,0,0.25);
+  --h1-grad:     linear-gradient(130deg,var(--gold) 0%,var(--gold-bright) 55%,var(--gold) 100%);
+  --orb1:        rgba(212,168,67,0.12);
+  --orb2:        rgba(60,80,200,0.12);
+  --grid:        rgba(255,255,255,0.018);
+  --scroll:      rgba(255,255,255,0.10);
+  --toast-err:   rgba(220,40,40,0.94);
+  --toast-ok:    rgba(30,140,80,0.94);
+  --ev-stripe:   #D4A843;
+}
+
+/* ════════════════════════════════════════════════════
+   LIGHT TOKENS
+════════════════════════════════════════════════════ */
+html.light {
+  --bg:          #F4F1EC;
+  --bg-card:     #FFFFFF;
+  --bg-input:    #F9F7F4;
+  --bg-input-f:  #FFFFFF;
+  --bg-elevated: #EEE9E1;
+  --bdr:         rgba(180,140,60,0.28);
+  --bdr-hover:   rgba(180,140,60,0.50);
+  --bdr-focus:   rgba(180,140,60,0.80);
+  --bdr-subtle:  rgba(0,0,0,0.08);
+  --gold:        #B8892A;
+  --gold-bright: #9A7020;
+  --gold-dim:    rgba(180,140,60,0.10);
+  --gold-glow:   rgba(180,140,60,0.18);
+  --text:        #1A1710;
+  --text-soft:   #3D3828;
+  --text-muted:  #6B6452;
+  --text-dim:    #A89E88;
+  --error:       #C0392B;
+  --error-bg:    rgba(192,57,43,0.07);
+  --error-bdr:   rgba(192,57,43,0.28);
+  --success:     #1A7A42;
+  --success-bg:  rgba(26,122,66,0.08);
+  --success-bdr: rgba(26,122,66,0.28);
+  --info-bg:     rgba(30,100,200,0.06);
+  --info-bdr:    rgba(30,100,200,0.20);
+  --info-text:   #1E5CB8;
+  --shadow-card: 0 0 0 1px rgba(0,0,0,0.06), 0 20px 60px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.07);
+  --shadow-input-focus: 0 0 0 3px rgba(180,140,60,0.15);
+  --shadow-btn-p: 0 4px 20px rgba(180,140,60,0.22), 0 2px 8px rgba(0,0,0,0.15);
+  --shadow-btn-h: 0 8px 32px rgba(180,140,60,0.32), 0 4px 12px rgba(0,0,0,0.15);
+  --btn-p-bg:    linear-gradient(135deg,#B8892A 0%,#9A7020 50%,#B08028 100%);
+  --btn-p-hover: linear-gradient(135deg,#C8920A 0%,#B8892A 100%);
+  --btn-p-text:  #ffffff;
+  --cf-bg:       rgba(0,0,0,0.03);
+  --h1-grad:     linear-gradient(130deg,#9A7020 0%,#C8920A 55%,#9A7020 100%);
+  --orb1:        rgba(180,140,60,0.18);
+  --orb2:        rgba(100,130,220,0.10);
+  --grid:        rgba(0,0,0,0.04);
+  --scroll:      rgba(0,0,0,0.15);
+  --toast-err:   rgba(180,30,30,0.94);
+  --toast-ok:    rgba(20,120,60,0.94);
+  --ev-stripe:   #B8892A;
+}
+
+/* ════════════════════════════════════════════════════
+   BASE
+════════════════════════════════════════════════════ */
+body {
+  font-family: 'Open Sans', sans-serif;
+  direction: rtl; text-align: right;
+  background: var(--bg); color: var(--text);
+  min-height: 100vh; min-height: 100dvh;
+  overflow-x: hidden; -webkit-font-smoothing: antialiased;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+.theme-toggle {
+  position: fixed; top: 16px; left: 16px; z-index: 9000;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--bg-elevated); border: 1.5px solid var(--bdr-subtle);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text-muted);
+  transition: var(--t-base); box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+.theme-toggle:hover { border-color: var(--gold); color: var(--gold); transform: scale(1.08); }
+.ico-moon { display: block; }
+.ico-sun  { display: none; }
+html.light .ico-moon { display: none; }
+html.light .ico-sun  { display: block; }
+
+.bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.bg-orb   { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.55; }
+html.light .bg-orb { opacity: 0.45; }
+.bg-orb-1 { width:600px; height:600px; top:-200px; right:-100px; background:radial-gradient(circle,var(--orb1) 0%,transparent 70%); }
+.bg-orb-2 { width:500px; height:500px; bottom:-150px; left:-100px; background:radial-gradient(circle,var(--orb2) 0%,transparent 70%); }
+.bg-orb-3 { width:350px; height:350px; top:40%; left:50%; transform:translate(-50%,-50%); background:radial-gradient(circle,rgba(212,168,67,0.04) 0%,transparent 70%); }
+.bg-grid  { position:absolute; inset:0; background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px); background-size:60px 60px; mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%); }
+
+.page { position:relative; z-index:1; min-height:100vh; min-height:100dvh; display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,32px) clamp(60px,10vw,100px); }
+.hdr { width:100%; max-width:640px; padding:clamp(36px,6vw,64px) 0 clamp(28px,4vw,44px); display:flex; flex-direction:column; align-items:center; gap:clamp(12px,2vw,18px); animation:fadeDown 0.7s ease both; }
+.brand-pill { display:inline-flex; align-items:center; gap:9px; padding:6px 18px; border-radius:var(--r-pill); border:1px solid var(--bdr); background:rgba(212,168,67,0.07); font-size:11px; font-weight:800; letter-spacing:0.20em; text-transform:uppercase; color:var(--gold); }
+.brand-pill svg { flex-shrink:0; }
+h1 { font-family:'Open Sans',sans-serif; font-size:clamp(1.75rem,5.5vw,3rem); font-weight:900; color:var(--text); letter-spacing:-0.025em; line-height:1.12; text-align:center; }
+h1 .grad { background:var(--h1-grad); background-size:200% 100%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:shimmer-text 4s ease infinite; }
+.hdr-sub { font-size:clamp(13px,2.2vw,15px); color:var(--text-muted); text-align:center; max-width:400px; line-height:1.75; }
+
+.card { width:100%; max-width:620px; background:var(--bg-card); border:1px solid var(--bdr-subtle); border-radius:var(--r-xl); overflow:hidden; box-shadow:var(--shadow-card); animation:fadeUp 0.65s 0.18s ease both; position:relative; }
+.card::before { content:''; position:absolute; top:0; left:10%; right:10%; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:0.5; }
+
+.fb { padding:clamp(20px,4vw,28px) clamp(20px,5vw,36px) clamp(24px,5vw,36px); }
+.sec-hd { margin-bottom:24px; }
+.sec-title { font-family:'Open Sans',sans-serif; font-size:clamp(16px,3vw,20px); font-weight:700; color:var(--text); line-height:1.2; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.sec-sub   { font-size:clamp(12px,2vw,13.5px); color:var(--text-muted); margin-top:6px; line-height:1.70; }
+.fields    { display:flex; flex-direction:column; gap:clamp(14px,3vw,20px); }
+.frow      { display:grid; grid-template-columns:1fr 1fr; gap:clamp(10px,2vw,16px); }
+.field     { display:flex; flex-direction:column; gap:6px; }
+label { font-size:12px; font-weight:700; color:var(--text-soft); letter-spacing:0.07em; display:flex; align-items:center; gap:6px; direction:rtl; text-align:right; line-height:1; }
+label .req  { color:var(--gold-bright); font-size:14px; line-height:0.8; }
+input[type="text"], input[type="email"], input[type="tel"], textarea { width:100%; padding:clamp(11px,2vw,14px) clamp(13px,2vw,16px); background:var(--bg-input); border:1.5px solid rgba(255,255,255,0.09); border-radius:var(--r-sm); color:var(--text); font-family:'Open Sans',sans-serif; font-size:clamp(14px,2.5vw,15px); outline:none; transition:border-color var(--t-base),background var(--t-base),box-shadow var(--t-base); -webkit-appearance:none; appearance:none; min-height:48px; direction:rtl; text-align:right; }
+html.light input[type="text"], html.light input[type="email"], html.light input[type="tel"], html.light textarea { border-color:rgba(0,0,0,0.10); }
+input::placeholder, textarea::placeholder { color:var(--text-dim); direction:rtl; text-align:right; }
+input:hover:not(:disabled), textarea:hover:not(:disabled) { border-color:rgba(255,255,255,0.16); background:var(--bg-input-f); }
+html.light input:hover:not(:disabled), html.light textarea:hover:not(:disabled) { border-color:rgba(0,0,0,0.18); }
+input:focus, textarea:focus { border-color:var(--gold); background:var(--bg-input-f); box-shadow:var(--shadow-input-focus); color:var(--text); }
+input:disabled { opacity:0.55; cursor:not-allowed; }
+input.is-err, textarea.is-err { border-color:var(--error) !important; box-shadow:0 0 0 3px rgba(255,107,107,0.12) !important; }
+textarea { resize:vertical; min-height:88px; line-height:1.65; }
+.iw { position:relative; }
+.iw .ico { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-muted); pointer-events:none; display:flex; }
+.iw input { padding-left:40px; }
+.ferr { font-size:11.5px; color:var(--error); direction:rtl; min-height:16px; line-height:1.3; display:flex; align-items:center; gap:4px; }
+.dvd { height:1px; background:linear-gradient(90deg,transparent,var(--bdr-subtle) 30%,var(--bdr-subtle) 70%,transparent); margin:clamp(20px,4vw,28px) 0; }
+
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:clamp(11px,2vw,14px) clamp(18px,3vw,26px); border-radius:var(--r-sm); font-family:'Open Sans',sans-serif; font-size:clamp(13px,2.5vw,15px); font-weight:800; cursor:pointer; border:none; transition:var(--t-base); white-space:nowrap; user-select:none; min-height:48px; }
+.btn-p { background:var(--btn-p-bg); color:var(--btn-p-text); box-shadow:var(--shadow-btn-p); letter-spacing:0.02em; }
+.btn-p:hover:not(:disabled) { background:var(--btn-p-hover); transform:translateY(-2px); box-shadow:var(--shadow-btn-h); }
+.btn-p:active:not(:disabled) { transform:translateY(0); }
+.btn-p:disabled { opacity:0.40; cursor:not-allowed; transform:none !important; box-shadow:none; }
+.btn-o { background:transparent; border:1.5px solid rgba(255,255,255,0.12); color:var(--text-soft); }
+html.light .btn-o { border-color:rgba(0,0,0,0.14); }
+.btn-o:hover { border-color:var(--gold); color:var(--gold-bright); background:var(--gold-dim); }
+.btn-full { width:100%; }
+.btn-lg   { padding:clamp(13px,2.5vw,16px) clamp(24px,4vw,36px); font-size:clamp(14px,2.5vw,16px); }
+.spin { width:17px; height:17px; border:2px solid rgba(0,0,0,0.20); border-top-color:currentColor; border-radius:50%; animation:rotate 0.65s linear infinite; }
+
+.cf { padding:clamp(14px,3vw,20px) clamp(20px,5vw,36px); border-top:1px solid var(--bdr-subtle); background:var(--cf-bg); display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.cf-note { font-size:12px; color:var(--text-muted); display:flex; align-items:center; gap:7px; line-height:1.4; }
+.cf-note svg { flex-shrink:0; color:var(--text-dim); }
+
+.ntf { padding:12px 15px; border-radius:var(--r-sm); font-size:13px; line-height:1.60; display:flex; align-items:flex-start; gap:10px; animation:fadeIn 0.25s ease; direction:rtl; }
+.ntf svg { flex-shrink:0; margin-top:1px; }
+.ntf-info    { background:var(--info-bg);    border:1px solid var(--info-bdr);    color:var(--info-text); }
+.ntf-success { background:var(--success-bg); border:1px solid var(--success-bdr); color:var(--success); }
+.ntf-error   { background:var(--error-bg);   border:1px solid var(--error-bdr);   color:var(--error); }
+
+#toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-12px); z-index:9999; opacity:0; pointer-events:none; transition:all 0.30s cubic-bezier(0.34,1.56,0.64,1); }
+#toast.show { opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto; }
+.ti { padding:13px 22px; border-radius:var(--r-pill); font-family:'Open Sans',sans-serif; font-size:14px; font-weight:700; display:flex; align-items:center; gap:9px; box-shadow:0 12px 40px rgba(0,0,0,0.50); backdrop-filter:blur(16px); white-space:nowrap; }
+.ti-err { background:var(--toast-err); color:#fff; border:1px solid rgba(255,100,100,0.30); }
+.ti-ok  { background:var(--toast-ok);  color:#fff; border:1px solid rgba(74,222,128,0.30); }
+
+.skeleton-wrap { display:flex; flex-direction:column; gap:12px; padding:20px 0; }
+.skeleton-card { background:var(--bg-elevated); border:1.5px solid var(--bdr-subtle); border-radius:var(--r-md); padding:20px; display:flex; align-items:center; gap:14px; animation:skeletonPulse 1.5s ease-in-out infinite; }
+.skeleton-date { width:52px; height:68px; border-radius:var(--r-sm); background:var(--bg-input); flex-shrink:0; }
+.skeleton-lines { flex:1; display:flex; flex-direction:column; gap:8px; }
+.skeleton-line { height:12px; border-radius:4px; background:var(--bg-input); }
+.skeleton-line.w60 { width:60%; }
+.skeleton-line.w40 { width:40%; }
+.skeleton-line.w30 { width:30%; }
+
+.events-section { padding:0 clamp(20px,5vw,36px) clamp(28px,5vw,40px); animation:fadeUp 0.5s 0.25s ease both; }
+.events-hdr { padding:clamp(22px,4vw,30px) 0 18px; text-align:center; }
+.events-hdr-title { font-size:clamp(14px,3vw,17px); font-weight:700; color:var(--text); margin-bottom:6px; display:flex; align-items:center; justify-content:center; gap:8px; }
+.events-hdr-sub   { font-size:13px; color:var(--text-muted); line-height:1.6; }
+.events-grid { display:flex; flex-direction:column; gap:10px; }
+
+.filter-tabs { display:flex; gap:8px; justify-content:center; margin-bottom:20px; flex-wrap:wrap; }
+.filter-tab { padding:9px 20px; border-radius:var(--r-pill); border:1.5px solid var(--bdr-subtle); background:var(--bg-elevated); color:var(--text-muted); font-size:13px; font-weight:700; cursor:pointer; transition:var(--t-base); font-family:'Open Sans',sans-serif; display:inline-flex; align-items:center; gap:7px; user-select:none; }
+.filter-tab:hover { border-color:var(--bdr-hover); color:var(--text); }
+.filter-tab.active { border-color:var(--gold); background:rgba(212,168,67,0.10); color:var(--gold-bright); box-shadow:0 0 0 3px rgba(212,168,67,0.08); }
+.filter-count { font-size:11px; padding:1px 7px; border-radius:var(--r-pill); background:rgba(212,168,67,0.15); color:var(--gold-bright); font-weight:800; }
+.filter-tab.active .filter-count { background:rgba(212,168,67,0.25); }
+
+.ev-card { background:var(--bg-elevated); border:1.5px solid var(--bdr-subtle); border-radius:var(--r-md); padding:clamp(14px,3vw,18px) clamp(14px,3vw,20px); cursor:pointer; transition:var(--t-base); display:flex; align-items:center; gap:14px; position:relative; overflow:hidden; user-select:none; }
+.ev-card::after { content:''; position:absolute; right:0; top:0; bottom:0; width:3px; background:var(--ev-stripe); opacity:0; transition:var(--t-base); border-radius:0 var(--r-md) var(--r-md) 0; }
+.ev-card:hover { border-color:var(--bdr-hover); transform:translateX(-3px); }
+.ev-card:hover::after { opacity:1; }
+.ev-card.sel { border-color:var(--gold); background:rgba(212,168,67,0.07); box-shadow:0 0 0 4px rgba(212,168,67,0.08); }
+.ev-card.sel::after { opacity:1; }
+.ev-card.ev-full { opacity:0.46; cursor:not-allowed; pointer-events:none; }
+.ev-date { flex-shrink:0; width:52px; text-align:center; background:var(--bg-input); border:1px solid var(--bdr); border-radius:var(--r-sm); padding:8px 4px; display:flex; flex-direction:column; align-items:center; gap:2px; }
+.ev-day { font-size:22px; font-weight:800; color:var(--gold); line-height:1; }
+.ev-mon { font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; }
+.ev-wd { font-size:9px; font-weight:600; color:var(--text-dim); margin-top:2px; }
+.ev-info { flex:1; min-width:0; }
+.ev-name { font-size:clamp(13px,2.5vw,15px); font-weight:700; color:var(--text); margin-bottom:6px; line-height:1.35; }
+.ev-time-row { display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:6px; direction:ltr; justify-content:flex-end; }
+.ev-time-row svg { color:var(--gold); flex-shrink:0; }
+.ev-meta { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+.ev-badge-open { flex-shrink:0; font-size:10.5px; font-weight:800; padding:4px 11px; border-radius:var(--r-pill); background:var(--success-bg); color:var(--success); border:1px solid var(--success-bdr); white-space:nowrap; }
+.ev-badge-full { flex-shrink:0; font-size:10.5px; font-weight:800; padding:4px 11px; border-radius:var(--r-pill); background:var(--error-bg); color:var(--error); border:1px solid var(--error-bdr); white-space:nowrap; }
+.ev-check { flex-shrink:0; width:22px; height:22px; border-radius:50%; border:2px solid var(--bdr-subtle); display:flex; align-items:center; justify-content:center; transition:var(--t-base); align-self:flex-start; margin-top:2px; }
+.ev-card.sel .ev-check { background:var(--gold); border-color:var(--gold); color:#060710; }
+.ev-right { display:flex; flex-direction:column; align-items:flex-end; gap:8px; flex-shrink:0; }
+.ev-cta { display:flex; flex-direction:column; gap:10px; align-items:stretch; margin-top:20px; }
+
+.sel-ev-banner { margin-bottom:24px; padding:14px 18px; background:rgba(212,168,67,0.07); border:1px solid rgba(212,168,67,0.22); border-radius:var(--r-md); display:flex; align-items:center; gap:14px; }
+.seb-change { flex-shrink:0; background:none; border:none; cursor:pointer; font-family:'Open Sans',sans-serif; font-size:12px; font-weight:700; color:var(--gold); text-decoration:underline; text-underline-offset:2px; transition:var(--t-fast); padding:4px 0; }
+.seb-change:hover { color:var(--gold-bright); }
+
+.ev-suc { padding:clamp(48px,8vw,72px) clamp(20px,5vw,40px); display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; animation:fadeIn 0.5s ease both; }
+.suc-ring { width:76px; height:76px; border-radius:50%; background:var(--success-bg); border:2px solid var(--success-bdr); display:flex; align-items:center; justify-content:center; animation:scaleIn 0.55s 0.1s cubic-bezier(0.34,1.56,0.64,1) both; position:relative; }
+.suc-ring::after { content:''; position:absolute; inset:-8px; border-radius:50%; border:1px solid var(--success-bdr); opacity:0.4; animation:pulseRing 2s ease infinite; }
+.suc-ring svg { color:var(--success); }
+.suc-title { font-family:'Open Sans',sans-serif; font-size:clamp(20px,4vw,26px); font-weight:900; color:var(--text); }
+.suc-sub { font-size:clamp(13px,2.5vw,15px); color:var(--text-muted); line-height:1.75; max-width:380px; }
+.channels { display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center; }
+.ch-badge { display:inline-flex; align-items:center; gap:7px; padding:7px 14px; border-radius:var(--r-pill); font-size:12px; font-weight:700; border:1px solid var(--bdr-subtle); background:var(--bg-elevated); color:var(--text-muted); }
+.ch-badge.email { border-color:rgba(96,165,250,0.3); color:var(--info-text); background:var(--info-bg); }
+.ch-badge.wa { border-color:rgba(74,222,128,0.3); color:var(--success); background:var(--success-bg); }
+.ev-suc-card { background:var(--bg-elevated); border:1px solid var(--bdr-subtle); border-radius:var(--r-md); padding:clamp(16px,3vw,22px) clamp(18px,4vw,28px); width:100%; max-width:380px; text-align:right; }
+.ev-suc-card-title { font-size:13px; font-weight:800; color:var(--text-soft); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.ev-suc-row { font-size:13px; color:var(--text-muted); line-height:2.1; display:flex; flex-direction:column; }
+.ev-suc-row strong { color:var(--text); font-weight:700; }
+.ev-suc-chip { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:700; color:var(--gold); padding:5px 14px; border-radius:var(--r-pill); background:rgba(212,168,67,0.08); border:1px solid rgba(212,168,67,0.22); margin-top:4px; width:fit-content; }
+
+.empty-state { text-align:center; padding:clamp(40px,8vw,64px) 20px; display:flex; flex-direction:column; align-items:center; gap:16px; }
+.empty-icon { width:72px; height:72px; border-radius:50%; background:var(--bg-elevated); border:1.5px solid var(--bdr-subtle); display:flex; align-items:center; justify-content:center; color:var(--text-dim); animation:fadeIn 0.5s ease both; }
+.empty-title { font-size:18px; font-weight:800; color:var(--text-soft); }
+.empty-sub { font-size:13px; color:var(--text-muted); line-height:1.7; max-width:300px; }
+.error-state { text-align:center; padding:clamp(40px,8vw,64px) 20px; display:flex; flex-direction:column; align-items:center; gap:16px; }
+.error-icon { width:72px; height:72px; border-radius:50%; background:var(--error-bg); border:1.5px solid var(--error-bdr); display:flex; align-items:center; justify-content:center; color:var(--error); animation:fadeIn 0.5s ease both; }
+.error-title { font-size:18px; font-weight:800; color:var(--text); }
+.error-sub { font-size:13px; color:var(--text-muted); line-height:1.7; max-width:320px; }
+
+/* Custom Select (role dropdown) */
+.cs-w { position:relative; }
+.cs-t { width:100%; padding:clamp(11px,2vw,14px) clamp(13px,2vw,16px); background:var(--bg-input); border:1.5px solid rgba(255,255,255,0.09); border-radius:var(--r-sm); color:var(--text-muted); font-family:'Open Sans',sans-serif; font-size:clamp(14px,2.5vw,15px); direction:rtl; text-align:right; cursor:pointer; display:flex; align-items:center; justify-content:space-between; transition:var(--t-base); user-select:none; min-height:48px; gap:10px; }
+html.light .cs-t { border-color:rgba(0,0,0,0.10); }
+.cs-t:hover { border-color:rgba(255,255,255,0.16); background:var(--bg-input-f); }
+.cs-t.open { border-color:var(--gold); background:var(--bg-input-f); border-bottom-left-radius:0; border-bottom-right-radius:0; box-shadow:var(--shadow-input-focus); }
+.cs-t .cs-ph { color:var(--text-dim); }
+.cs-t .cs-v { color:var(--text); font-weight:600; }
+.cs-t .arr { flex-shrink:0; color:var(--text-muted); transition:var(--t-base); }
+.cs-t.open .arr { transform:rotate(180deg); color:var(--gold); }
+.cs-t.is-err { border-color:var(--error) !important; box-shadow:0 0 0 3px rgba(255,107,107,0.12) !important; }
+.cs-dd { position:absolute; top:100%; left:0; right:0; z-index:200; background:var(--bg-input-f); border:1.5px solid var(--gold); border-top:none; border-bottom-left-radius:var(--r-sm); border-bottom-right-radius:var(--r-sm); overflow:hidden; box-shadow:0 16px 48px rgba(0,0,0,0.55); display:flex; flex-direction:column; }
+.cs-item { padding:11px 16px; cursor:pointer; transition:background var(--t-fast); display:flex; align-items:center; justify-content:space-between; font-size:14px; direction:rtl; gap:10px; min-height:44px; color:var(--text-soft); }
+.cs-item:hover { background:rgba(212,168,67,0.06); color:var(--text); }
+.cs-item.sel { background:rgba(212,168,67,0.10); color:var(--gold-bright); font-weight:700; }
+.cs-item:not(:last-child) { border-bottom:1px solid var(--bdr-subtle); }
+
+/* ★ "Other" button + manual input for dropdowns */
+.cs-other-btn { padding:11px 16px; border-top:1px solid var(--bdr-subtle); cursor:pointer; display:flex; align-items:center; gap:9px; font-size:13px; font-weight:600; color:var(--text-muted); transition:var(--t-fast); }
+.cs-other-btn:hover { color:var(--gold); background:rgba(212,168,67,0.05); }
+.cs-other-btn svg { flex-shrink:0; }
+.cs-other-wrap { display:none; margin-top:10px; animation:fadeUp 0.25s ease both; }
+
+@media (max-width:900px) { .card { border-radius:var(--r-lg); } }
+@media (max-width:540px) {
+  .card { border-radius:0; border-left:none; border-right:none; border-top:1px solid var(--bdr-subtle); border-bottom:1px solid var(--bdr-subtle); }
+  .card::before { left:0; right:0; }
+  .frow { grid-template-columns:1fr; }
+  .cf { flex-direction:column-reverse; align-items:stretch; } .cf-note { justify-content:center; }
+  .btn-full-mob { width:100%; }
+  .page { padding-left:0; padding-right:0; } .hdr { padding-left:16px; padding-right:16px; }
+  .ev-badge-open, .ev-badge-full { display:none; }
+  .events-section { padding-left:16px; padding-right:16px; }
+  .ev-right { flex-direction:row; align-self:flex-end; }
+  .filter-tabs { gap:6px; } .filter-tab { padding:7px 14px; font-size:12px; }
+}
+@media (max-width:360px) { h1 { font-size:1.5rem; } }
+@media (max-height:500px) and (orientation:landscape) { .hdr { padding-top:20px; padding-bottom:16px; gap:8px; } }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; } }
+
+@keyframes fadeDown { from{opacity:0;transform:translateY(-18px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes rotate { to{transform:rotate(360deg)} }
+@keyframes scaleIn { from{opacity:0;transform:scale(0.4)} to{opacity:1;transform:scale(1)} }
+@keyframes shake { 0%,100%{transform:translateX(0)} 18%{transform:translateX(-7px)} 36%{transform:translateX(7px)} 54%{transform:translateX(-5px)} 72%{transform:translateX(5px)} }
+@keyframes pulseRing { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:0;transform:scale(1.25)} }
+@keyframes shimmer-text { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+@keyframes skeletonPulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+::-webkit-scrollbar { width:5px; height:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--scroll); border-radius:3px; }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()" title="החלף מצב תצוגה" aria-label="החלף מצב תצוגה">
+  <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+
+<div id="toast"><div id="ti" class="ti ti-err"></div></div>
+
+<div class="bg-layer">
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+  <div class="bg-grid"></div>
+</div>
+
+<div class="page">
+  <header class="hdr">
+    <div class="brand-pill">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>
+      EVENTS
+    </div>
+    <h1>הרשמה ל<span class="grad">אירועים ווובינרים</span></h1>
+    <p class="hdr-sub">בחרו את האירועים שמעניינים אתכם והירשמו בקלות.</p>
+  </header>
+
+  <div class="card" id="main-card">
+
+    <!-- STEP 1 – EVENT LIST -->
+    <div id="step-events">
+      <div class="events-section">
+        <div class="events-hdr">
+          <div class="events-hdr-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>
+            אירועים ווובינרים קרובים
+          </div>
+          <p class="events-hdr-sub">בחרו אירוע אחד או יותר – ונשריין לכם מקום</p>
+        </div>
+        <div class="filter-tabs" id="filter-tabs"></div>
+        <div class="events-grid" id="events-grid">
+          <div class="skeleton-wrap" id="loading-skeleton">
+            <div class="skeleton-card"><div class="skeleton-date"></div><div class="skeleton-lines"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w30"></div></div></div>
+            <div class="skeleton-card"><div class="skeleton-date"></div><div class="skeleton-lines"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w30"></div></div></div>
+            <div class="skeleton-card"><div class="skeleton-date"></div><div class="skeleton-lines"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w30"></div></div></div>
+          </div>
+        </div>
+        <div class="ev-cta">
+          <button class="btn btn-p btn-full btn-lg" id="ev-proceed-btn" onclick="goToEventForm()" style="display:none">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            המשך לרישום לאירוע
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 – REGISTRATION FORM -->
+    <div id="step-form" style="display:none">
+      <div class="fb">
+        <div class="sel-ev-banner" id="sel-ev-banner"></div>
+        <div class="sec-hd">
+          <div class="sec-title">פרטי הנרשם</div>
+          <p class="sec-sub">הפרטים יופיעו על תג השם שלכם באירוע.</p>
+        </div>
+        <div class="fields">
+          <div class="frow">
+            <div class="field">
+              <label>שם פרטי <span class="req">*</span></label>
+              <input type="text" id="ev-first" placeholder="ישראל">
+              <div class="ferr" id="ev-err-first"></div>
+            </div>
+            <div class="field">
+              <label>שם משפחה <span class="req">*</span></label>
+              <input type="text" id="ev-last" placeholder="ישראלי">
+              <div class="ferr" id="ev-err-last"></div>
+            </div>
+          </div>
+          <div class="frow">
+            <div class="field">
+              <label>שם הארגון / חברה <span class="req">*</span></label>
+              <input type="text" id="ev-org" placeholder="שם הארגון">
+              <div class="ferr" id="ev-err-org"></div>
+            </div>
+            <div class="field">
+              <label>תפקיד <span class="req">*</span></label>
+              <div class="cs-w" id="rl-w">
+                <div class="cs-t" id="rl-t" onclick="toggleRL()">
+                  <span id="rl-d" class="cs-ph">בחרו תפקיד...</span>
+                  <svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="cs-dd" id="rl-dd" style="display:none">
+                  <div id="rl-list"></div>
+                  <!-- ★ "Other" button -->
+                  <div class="cs-other-btn" onclick="pickRLOther()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="14"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    אחר (הזנה ידנית)
+                  </div>
+                </div>
+              </div>
+              <!-- ★ Manual text input for role -->
+              <div id="rl-other-wrap" class="cs-other-wrap">
+                <input type="text" id="rl-other-text" placeholder="הקלידו את התפקיד...">
+              </div>
+              <div class="ferr" id="ev-err-role"></div>
+            </div>
+          </div>
+
+          <div class="dvd"></div>
+
+          <div class="sec-hd" style="margin-bottom:16px">
+            <div class="sec-title">פרטי התקשורת</div>
+            <p class="sec-sub">לשליחת אישור הרשמה ו-QR Code לכניסה.</p>
+          </div>
+
+          <div class="frow">
+            <div class="field">
+              <label>אימייל <span class="req">*</span></label>
+              <div class="iw">
+                <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg></span>
+                <input type="email" id="ev-email" placeholder="your@email.com" style="direction:ltr;text-align:left;">
+              </div>
+              <div class="ferr" id="ev-err-email"></div>
+            </div>
+            <div class="field">
+              <label>טלפון נייד <span class="req">*</span></label>
+              <div class="iw">
+                <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+                <input type="tel" id="ev-phone" placeholder="050-0000000">
+              </div>
+              <div class="ferr" id="ev-err-phone"></div>
+            </div>
+          </div>
+
+          <div class="ntf ntf-info">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>במידה ונרשמתם לאירוע יישלח אליכם QR Code לכניסה — גם לאימייל וגם לוואטסאפ.</span>
+          </div>
+        </div>
+      </div>
+      <div class="cf">
+        <span class="cf-note"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>הפרטים שלכם שמורים ומאובטחים</span>
+        <button class="btn btn-p btn-lg btn-full-mob" id="ev-submit-btn" onclick="submitEventForm()"><span>אשר רישום לאירוע</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 3 – SUCCESS -->
+    <div id="step-success" style="display:none">
+      <div class="ev-suc">
+        <div class="suc-ring"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="suc-title">נרשמת בהצלחה! 🎉</div>
+        <p class="suc-sub">הרישום שלך אושר. שימו לב: QR Code לכניסה יישלח בקרוב רק לנרשמים לאירוע (ולא לוובינר).</p>
+        <div class="channels">
+          <span class="ch-badge email"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg> נשלח לאימייל</span>
+          <span class="ch-badge wa"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.48-8.45z"/></svg> נשלח לוואטסאפ</span>
+        </div>
+        <div class="ev-suc-card">
+          <div class="ev-suc-card-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg> פרטי הרישום</div>
+          <div class="ev-suc-row">
+            <span><strong id="fin-name">–</strong></span>
+            <span id="fin-org" style="color:var(--text-muted)">–</span>
+            <span class="ev-suc-chip" id="fin-event"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg></span>
+          </div>
+        </div>
+        <button class="btn btn-o" onclick="resetToEvents()">חזרה לרשימת האירועים</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const WH_FETCH_EVENTS = 'https://hook.eu1.make.com/278xoiiqsvts65q5f4e92qpg3whqrvl9';
+const WH_EVENT        = 'https://hook.eu1.make.com/jwhjw8a4nfq12retm64y3a9tit6c5i69';
+
+const S = { events:[], selectedEvents:[], activeFilter:'all', loading:true, error:false };
+const TZ = 'Asia/Jerusalem';
+
+function fmtDay(iso){return iso?new Date(iso).toLocaleDateString('he-IL',{day:'numeric',timeZone:TZ}):'';}
+function fmtMonth(iso){return iso?new Date(iso).toLocaleDateString('he-IL',{month:'short',timeZone:TZ}):'';}
+function fmtWeekday(iso){return iso?new Date(iso).toLocaleDateString('he-IL',{weekday:'short',timeZone:TZ}):'';}
+function fmtTime(iso){return iso?new Date(iso).toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:TZ}):'';}
+function fmtFullDate(iso){return iso?new Date(iso).toLocaleDateString('he-IL',{day:'numeric',month:'long',year:'numeric',timeZone:TZ}):'';}
+
+function toggleTheme(){const h=document.documentElement;const l=h.classList.toggle('light');h.classList.toggle('dark',!l);document.getElementById('theme-meta').content=l?'#F4F1EC':'#080910';}
+const isEmail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+const isPhone=v=>/^[\d\s\-+()]{7,15}$/.test(v);
+
+let _tt;
+function showToast(msg,type='err'){const el=document.getElementById('toast'),ti=document.getElementById('ti');ti.className='ti ti-'+type;ti.textContent=msg;el.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),4200);}
+function setBtnLoading(btn,loading,label=''){if(loading){btn._orig=btn.innerHTML;btn.disabled=true;btn.innerHTML='<div class="spin"></div>';}else{btn.disabled=false;btn.innerHTML=label?'<span>'+label+'</span>':(btn._orig||btn.innerHTML);}}
+function show(id){const el=document.getElementById(id);el.style.display='block';el.style.animation='fadeUp 0.45s ease both';}
+function hide(id){document.getElementById(id).style.display='none';}
+
+/* ═══════════════════════════════════════════════
+   FETCH EVENTS
+═══════════════════════════════════════════════ */
+async function fetchEvents(){
+  S.loading=true;S.error=false;
+  try{
+    const res=await fetch(WH_FETCH_EVENTS,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'fetch_events',timestamp:new Date().toISOString()})});
+    const raw=await res.text();
+    const tryExtract=(val)=>{
+      if(Array.isArray(val)){if(val[0]?.activityid!==undefined)return val;if(val[0]?.body!==undefined){const b=val[0].body;return typeof b==='string'?JSON.parse(b):b;}}
+      if(val&&typeof val==='object'&&val.body!==undefined){const b=val.body;return typeof b==='string'?JSON.parse(b):b;}
+      return null;
+    };
+    let parsed;try{parsed=JSON.parse(raw);}catch{parsed=raw;}
+    const eventsArray=tryExtract(parsed);
+    if(Array.isArray(eventsArray)&&eventsArray.length>0){
+      S.events=eventsArray.map(ev=>({id:ev.activityid,name:ev.subject,type:ev.activitytypecode,emoji:ev.activitytypecode==='וובינר'?'💻':'🏛️',scheduledstart:ev.scheduledstart||null,scheduledend:ev.scheduledend||null,full:ev.full||false}));
+    }else{S.events=[];}
+  }catch(err){console.error(err);S.error=true;S.events=[];}
+  S.loading=false;renderFilterTabs();renderEvents();
+}
+
+/* ═══════════════════════════════════════════════
+   FILTER TABS
+═══════════════════════════════════════════════ */
+function renderFilterTabs(){
+  const c=document.getElementById('filter-tabs');
+  if(S.events.length===0){c.innerHTML='';return;}
+  const types={};S.events.forEach(ev=>{types[ev.type]=(types[ev.type]||0)+1;});
+  const keys=Object.keys(types);if(keys.length<2){c.innerHTML='';return;}
+  let h='<button class="filter-tab '+(S.activeFilter==='all'?'active':'')+'" onclick="setFilter(\'all\')">הכל <span class="filter-count">'+S.events.length+'</span></button>';
+  keys.forEach(type=>{
+    const ico=type==='וובינר'?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>':'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>';
+    h+='<button class="filter-tab '+(S.activeFilter===type?'active':'')+'" onclick="setFilter(\''+type+'\')">'+ico+' '+type+' <span class="filter-count">'+types[type]+'</span></button>';
+  });
+  c.innerHTML=h;
+}
+function setFilter(f){S.activeFilter=f;S.selectedEvents=[];updateProceedBtn();renderFilterTabs();renderEvents();}
+
+/* ═══════════════════════════════════════════════
+   RENDER EVENTS
+═══════════════════════════════════════════════ */
+function renderEvents(){
+  const grid=document.getElementById('events-grid');
+  if(S.loading)return;
+  if(S.error){grid.innerHTML='<div class="error-state"><div class="error-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div class="error-title">שגיאה בטעינת האירועים</div><p class="error-sub">לא הצלחנו לטעון את רשימת האירועים.</p><button class="btn btn-p" onclick="retryFetch()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> נסה שוב</button></div>';return;}
+  if(!S.events||S.events.length===0){grid.innerHTML='<div class="empty-state"><div class="empty-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg></div><div class="empty-title">אין אירועים קרובים</div><p class="empty-sub">כרגע אין אירועים מתוכננים. חזרו בקרוב.</p></div>';return;}
+  const filtered=S.activeFilter==='all'?S.events:S.events.filter(ev=>ev.type===S.activeFilter);
+  if(filtered.length===0){grid.innerHTML='<div class="empty-state" style="padding:32px 16px;"><div class="empty-title" style="font-size:15px;">אין תוצאות</div></div>';return;}
+  const tps=t=>t==='וובינר'?'background:rgba(96,165,250,0.10);color:var(--info-text);border:1px solid var(--info-bdr);':'background:rgba(212,168,67,0.10);color:var(--gold-bright);border:1px solid rgba(212,168,67,0.28);';
+  const tpi=t=>t==='וובינר'?'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>':'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>';
+  const ci='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+  const chi='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>';
+  grid.innerHTML=filtered.map(ev=>{
+    const sel=S.selectedEvents.some(e=>e.id===ev.id);const hd=!!ev.scheduledstart;
+    const d=hd?fmtDay(ev.scheduledstart):'';const m=hd?fmtMonth(ev.scheduledstart):'';const w=hd?fmtWeekday(ev.scheduledstart):'';
+    const ts=hd?fmtTime(ev.scheduledstart):'';const te=ev.scheduledend?fmtTime(ev.scheduledend):'';
+    const tt=ts?(te?ts+' – '+te:ts):'';
+    return '<div class="ev-card '+(ev.full?'ev-full':'')+' '+(sel?'sel':'')+'" onclick="'+(ev.full?'':"selectEvent('"+ev.id+"')")+'">'
+      +(hd?'<div class="ev-date"><div class="ev-day">'+d+'</div><div class="ev-mon">'+m+'</div>'+(w?'<div class="ev-wd">'+w+'</div>':'')+'</div>':'')
+      +'<div class="ev-info"><div class="ev-name">'+ev.emoji+' '+ev.name+'</div>'+(tt?'<div class="ev-time-row">'+ci+'<span>'+tt+'</span></div>':'')
+      +'<div class="ev-meta"><span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:var(--r-pill);display:inline-flex;align-items:center;gap:4px;'+tps(ev.type)+'">'+tpi(ev.type)+' '+ev.type+'</span></div></div>'
+      +'<div class="ev-right">'+(ev.full?'<span class="ev-badge-full">מלא</span>':'<span class="ev-badge-open">פנוי ✓</span>')
+      +(!ev.full?'<div class="ev-check">'+(sel?chi:'')+'</div>':'')+'</div></div>';
+  }).join('');
+}
+
+function selectEvent(id){const ev=S.events.find(e=>e.id===id);if(!ev)return;const i=S.selectedEvents.findIndex(e=>e.id===id);if(i===-1)S.selectedEvents.push(ev);else S.selectedEvents.splice(i,1);renderEvents();updateProceedBtn();}
+function updateProceedBtn(){const b=document.getElementById('ev-proceed-btn');const c=S.selectedEvents.length;if(c>0){b.style.display='flex';b.style.animation='fadeUp 0.3s ease both';b.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> המשך לרישום ל-'+c+' אירוע'+(c>1?'ים':'');}else{b.style.display='none';}}
+
+/* ═══════════════════════════════════════════════
+   GO TO FORM / BACK
+═══════════════════════════════════════════════ */
+function goToEventForm(){
+  if(!S.selectedEvents.length)return;
+  const b=document.getElementById('sel-ev-banner');
+  b.innerHTML='<div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:10px;display:flex;align-items:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg> אירועים שנבחרו ('+S.selectedEvents.length+')</div><div style="display:flex;flex-direction:column;gap:8px;">'
+    +S.selectedEvents.map(ev=>{const p=[];if(ev.scheduledstart)p.push(fmtFullDate(ev.scheduledstart));const ts=ev.scheduledstart?fmtTime(ev.scheduledstart):'';const te=ev.scheduledend?fmtTime(ev.scheduledend):'';if(ts)p.push(te?ts+' – '+te:ts);return '<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg-input);border-radius:var(--r-sm);border:1px solid var(--bdr);"><span style="font-size:18px;line-height:1;flex-shrink:0;">'+ev.emoji+'</span><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.3;">'+ev.name+'</div>'+(p.length?'<div style="font-size:11px;color:var(--text-muted);margin-top:3px;">'+p.join(' · ')+'</div>':'')+'</div></div>';}).join('')
+    +'</div></div><button class="seb-change" onclick="backToEvents()" style="align-self:flex-start;">שנה</button>';
+  hide('step-events');show('step-form');window.scrollTo({top:0,behavior:'smooth'});
+}
+function backToEvents(){hide('step-form');show('step-events');window.scrollTo({top:0,behavior:'smooth'});}
+
+/* ═══════════════════════════════════════════════
+   ROLE DROPDOWN — with "Other" option
+═══════════════════════════════════════════════ */
+const RL={value:'',index:0,isManual:false};
+
+function toggleRL(){const t=document.getElementById('rl-t'),dd=document.getElementById('rl-dd');if(t.classList.contains('open')){closeRL();return;}t.classList.add('open');dd.style.display='flex';dd.style.flexDirection='column';renderRLItems();}
+function closeRL(){document.getElementById('rl-t')?.classList.remove('open');const dd=document.getElementById('rl-dd');if(dd)dd.style.display='none';}
+document.addEventListener('click',e=>{const w=document.getElementById('rl-w');if(w&&!w.contains(e.target))closeRL();});
+
+function renderRLItems(){
+  const roles=[{label:'אנליסט',idx:1},{label:'מנהל השקעות',idx:2},{label:'מנהל מחקר',idx:3},{label:'מנהל קרנות נאמנות',idx:4},{label:'מנהל קופות גמל',idx:5},{label:'סוחר',idx:6},{label:'מנהל נוסטרו',idx:7}];
+  document.getElementById('rl-list').innerHTML=roles.map(r=>{
+    const sel=RL.value===r.label&&!RL.isManual;
+    return '<div class="cs-item '+(sel?'sel':'')+'" onclick="pickRL(\''+r.label+'\','+r.idx+')"><span>'+r.label+'</span><span style="font-size:11px;color:'+(sel?'var(--gold)':'var(--text-dim)')+';">'+(sel?'✓':r.idx)+'</span></div>';
+  }).join('');
+}
+
+function pickRL(label,idx){
+  RL.value=label;RL.index=idx;RL.isManual=false;
+  const d=document.getElementById('rl-d');d.textContent=label;d.className='cs-v';
+  document.getElementById('rl-t').classList.remove('is-err');
+  document.getElementById('ev-err-role').textContent='';
+  document.getElementById('rl-other-wrap').style.display='none';
+  document.getElementById('rl-other-text').value='';
+  closeRL();
+}
+
+function pickRLOther(){
+  RL.value='';RL.index=0;RL.isManual=true;
+  const d=document.getElementById('rl-d');d.textContent='אחר (הזנה ידנית)';d.className='cs-v';
+  document.getElementById('rl-t').classList.remove('is-err');
+  document.getElementById('ev-err-role').textContent='';
+  document.getElementById('rl-other-wrap').style.display='block';
+  closeRL();
+  setTimeout(()=>document.getElementById('rl-other-text').focus(),60);
+}
+
+/* ═══════════════════════════════════════════════
+   SUBMIT EVENT REGISTRATION
+═══════════════════════════════════════════════ */
+async function submitEventForm(){
+  const FIELDS=[
+    {id:'ev-first',err:'ev-err-first',msg:'שם פרטי הוא שדה חובה.',check:v=>v.length>0},
+    {id:'ev-last',err:'ev-err-last',msg:'שם משפחה הוא שדה חובה.',check:v=>v.length>0},
+    {id:'ev-org',err:'ev-err-org',msg:'שם הארגון הוא שדה חובה.',check:v=>v.length>0},
+    {id:'ev-email',err:'ev-err-email',msg:'אנא הזינו כתובת אימייל תקינה.',check:isEmail},
+    {id:'ev-phone',err:'ev-err-phone',msg:'אנא הזינו מספר טלפון תקין.',check:isPhone},
+  ];
+  let valid=true;
+  FIELDS.forEach(f=>{
+    const inp=document.getElementById(f.id),err=document.getElementById(f.err);
+    const ok=f.check(inp.value.trim());
+    if(!ok){err.textContent=f.msg;inp.classList.add('is-err');if(valid){inp.focus();valid=false;}}
+    else{err.textContent='';inp.classList.remove('is-err');}
+    inp.oninput=function(){this.classList.remove('is-err');document.getElementById(f.err).textContent='';};
+  });
+
+  // ★ Validate role — support "other" manual input
+  const rlOtherText=document.getElementById('rl-other-text').value.trim();
+  if(!RL.value&&!RL.isManual){
+    document.getElementById('ev-err-role').textContent='אנא בחרו תפקיד.';
+    document.getElementById('rl-t').classList.add('is-err');
+    if(valid){document.getElementById('rl-t').scrollIntoView({behavior:'smooth',block:'center'});valid=false;}
+  }else if(RL.isManual&&!rlOtherText){
+    document.getElementById('ev-err-role').textContent='אנא הזינו את התפקיד.';
+    if(valid){document.getElementById('rl-other-text').focus();valid=false;}
+  }else{
+    document.getElementById('ev-err-role').textContent='';
+    document.getElementById('rl-t').classList.remove('is-err');
+  }
+  if(!valid)return;
+
+  const btn=document.getElementById('ev-submit-btn');
+  setBtnLoading(btn,true);
+  const firstName=document.getElementById('ev-first').value.trim();
+  const lastName=document.getElementById('ev-last').value.trim();
+  const finalRole=RL.isManual?rlOtherText:RL.value;
+  const finalRoleIndex=RL.isManual?'0':String(RL.index);
+
+  const payload={
+    action:'event_registration',
+    firstName,lastName,fullName:firstName+' '+lastName,
+    organization:document.getElementById('ev-org').value.trim(),
+    role:finalRole,roleIndex:finalRoleIndex,
+    email:document.getElementById('ev-email').value.trim(),
+    phone:document.getElementById('ev-phone').value.trim(),
+    activityid:S.selectedEvents.map(e=>e.id).join(','),
+    activitytypecode:S.selectedEvents.map(e=>e.type).join(', '),
+    eventName:S.selectedEvents.map(e=>e.name).join(', '),
+    events:S.selectedEvents.map(e=>({activityid:e.id,eventName:e.name,activitytypecode:e.type,scheduledstart:e.scheduledstart||'',scheduledend:e.scheduledend||''})),
+    scheduledstart:S.selectedEvents[0]?.scheduledstart||'',
+    scheduledend:S.selectedEvents[0]?.scheduledend||'',
+    submittedAt:new Date().toISOString(),
+  };
+  console.log('📤 Event registration payload:',payload);
+  try{
+    await fetch(WH_EVENT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    document.getElementById('fin-name').textContent=payload.fullName;
+    document.getElementById('fin-org').textContent=payload.organization;
+    document.getElementById('fin-event').innerHTML='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v4M16 4v4M2 10h20"/></svg>'+S.selectedEvents.map(e=>e.name).join(' · ');
+    hide('step-form');show('step-success');window.scrollTo({top:0,behavior:'smooth'});
+  }catch(e){console.error(e);showToast('שגיאה בשליחת הרישום. נסו שוב.','err');setBtnLoading(btn,false,'אשר רישום לאירוע');}
+}
+
+/* ═══════════════════════════════════════════════
+   RESET / RETRY
+═══════════════════════════════════════════════ */
+function resetToEvents(){
+  S.selectedEvents=[];S.activeFilter='all';
+  ['ev-first','ev-last','ev-org','ev-email','ev-phone'].forEach(id=>{const el=document.getElementById(id);if(el){el.value='';el.classList.remove('is-err');}});
+  ['ev-err-first','ev-err-last','ev-err-org','ev-err-role','ev-err-email','ev-err-phone'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='';});
+  RL.value='';RL.index=0;RL.isManual=false;
+  const rld=document.getElementById('rl-d');if(rld){rld.textContent='בחרו תפקיד...';rld.className='cs-ph';}
+  const rlt=document.getElementById('rl-t');if(rlt)rlt.classList.remove('open','is-err');
+  const rldd=document.getElementById('rl-dd');if(rldd)rldd.style.display='none';
+  document.getElementById('rl-other-wrap').style.display='none';
+  document.getElementById('rl-other-text').value='';
+  updateProceedBtn();hide('step-success');hide('step-form');show('step-events');
+  renderFilterTabs();renderEvents();window.scrollTo({top:0,behavior:'smooth'});
+}
+function retryFetch(){
+  document.getElementById('events-grid').innerHTML='<div class="skeleton-wrap"><div class="skeleton-card"><div class="skeleton-date"></div><div class="skeleton-lines"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w30"></div></div></div><div class="skeleton-card"><div class="skeleton-date"></div><div class="skeleton-lines"><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div><div class="skeleton-line w30"></div></div></div></div>';
+  fetchEvents();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{fetchEvents();});
+</script>
+</body>
+</html>
